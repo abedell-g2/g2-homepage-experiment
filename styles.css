@@ -1,0 +1,201 @@
+/* ============================================================
+   G2 Homepage Experiment — Custom Styles
+   Stack: HTML / Tailwind CSS CDN / Vanilla JS
+   Design tokens from Elevate (G2 design system)
+   ============================================================ */
+
+/* ---- Skip link (WCAG 2.4.1) ---- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 8px;
+  padding: 10px 20px;
+  background: #5746b2;
+  color: #fff;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 0 0 10px 10px;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top 0.12s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ---- Global focus ring (WCAG 2.4.7) ---- */
+.focus-ring:focus-visible {
+  outline: 2px solid #5746b2;
+  outline-offset: 2px;
+}
+/* Remove default outline only when .focus-ring is present */
+.focus-ring:focus {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid #5746b2;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---- Hero heading — Bogue-Regular fallback ---- */
+.hero-heading {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  line-height: 1.2;
+  max-width: 816px;
+}
+
+/* ---- Search field ---- */
+#search-field:focus-within {
+  box-shadow: 0 0 0 3px rgba(87, 70, 178, 0.18);
+}
+
+/* Hide native search cancel button */
+input[type="text"]::-webkit-search-decoration,
+input[type="text"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Search submit button — hidden until user types */
+.search-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: scale(0.9);
+}
+.search-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+/* ---- Stat cards (desktop floating) ---- */
+.stat-card {
+  background: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 12px;
+  padding: 17px;
+  min-width: 130px;
+  box-shadow: 0px 10px 15px rgba(0,0,0,0.1), 0px 4px 6px rgba(0,0,0,0.1);
+  animation: float 3.5s ease-in-out infinite;
+}
+.stat-card:nth-child(1) { animation-delay: 0s;    }
+.stat-card:nth-child(2) { animation-delay: 0.7s;  }
+.stat-card:nth-child(3) { animation-delay: 1.4s;  }
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+/* ---- Mobile stat pills ---- */
+.stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 12px;
+  padding: 12px 20px;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.07);
+}
+
+/* ---- Brand logos ---- */
+.brand-logo {
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+.brand-logo:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* ---- Scrollbar hide utility ---- */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ---- Dropdown menu ---- */
+.dropdown-menu {
+  animation: fade-in 0.15s ease;
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ---- Response panel cards ---- */
+.response-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  text-align: left;
+  box-shadow: 0px 10px 15px rgba(0,0,0,0.08), 0px 4px 6px rgba(0,0,0,0.05);
+  animation: slide-up 0.25s ease-out;
+  border: 1px solid #f3f3f3;
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* AI typing cursor */
+.typing-cursor::after {
+  content: '|';
+  margin-left: 1px;
+  animation: blink 0.65s step-end infinite;
+}
+@keyframes blink {
+  from,to { opacity: 1; }
+  50%     { opacity: 0; }
+}
+
+/* Loading dots (used during AI "thinking") */
+.loading-dots span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5746b2;
+  margin: 0 2px;
+  animation: loading-dot 1.2s ease-in-out infinite;
+}
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes loading-dot {
+  0%,80%,100% { transform: scale(0.6); opacity: 0.4; }
+  40%         { transform: scale(1);   opacity: 1;   }
+}
+
+/* ---- Reduced motion support (WCAG 2.3.3) ---- */
+@media (prefers-reduced-motion: reduce) {
+  .stat-card,
+  .typing-cursor::after,
+  .loading-dots span,
+  .dropdown-menu,
+  .response-card {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---- High contrast mode support ---- */
+@media (forced-colors: active) {
+  .search-btn {
+    border: 2px solid ButtonText;
+  }
+  .stat-card,
+  .stat-pill,
+  .response-card {
+    border: 1px solid ButtonText;
+  }
+}
