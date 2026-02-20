@@ -41,7 +41,7 @@
 
 /* ---- Hero heading — Fraunces display serif ---- */
 .hero-heading {
-  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+  font-family: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
   font-weight: 400;
   font-size: clamp(1.8rem, 4.5vw, 3rem);
   line-height: 1.2;
