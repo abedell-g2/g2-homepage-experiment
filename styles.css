@@ -178,8 +178,8 @@ input[type="text"]::-webkit-search-cancel-button {
 
 /* ---- Partner logo circles (floating) ---- */
 .logo-circle {
-  width: 88px;
-  height: 88px;
+  width: 108px;
+  height: 108px;
   border-radius: 50%;
   background: #fff;
   border: 1px solid #f3f3f3;
