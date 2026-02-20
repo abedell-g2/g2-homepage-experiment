@@ -301,12 +301,14 @@
                      spellcheck="false"
                      class="flex-1 text-g2-dark placeholder-g2-muted text-base bg-transparent border-0 outline-none min-w-0">
 
-              <!-- Submit (appears once user types) -->
-              <button type="submit"
-                      id="search-btn"
-                      class="search-btn shrink-0 bg-[#c4321a] text-white font-semibold text-sm px-4 py-1.5 rounded-full hover:bg-[#aa2a14] focus-ring transition-all"
-                      aria-label="Submit search">
-                Search
+              <!-- AI Mode toggle -->
+              <button type="button"
+                      id="ai-mode-toggle"
+                      class="ai-toggle shrink-0 focus-ring"
+                      aria-pressed="false"
+                      aria-label="Toggle AI Mode">
+                <span class="ai-toggle-dot" aria-hidden="true"></span>
+                AI Mode
               </button>
             </div>
 
@@ -317,6 +319,17 @@
               Try <em>"HubSpot"</em> to search, or <em>"What's the best CRM for startups?"</em> for AI help
             </p>
           </form>
+
+          <!-- AI canvas — suggested prompts (shown when AI Mode is on) -->
+          <div id="ai-canvas" class="hidden mt-3" aria-hidden="true">
+            <p class="text-xs font-semibold text-g2-muted uppercase tracking-wider mb-2 px-1">Try asking</p>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" class="prompt-chip focus-ring">What's the best CRM for startups?</button>
+              <button type="button" class="prompt-chip focus-ring">Compare Slack vs Microsoft Teams</button>
+              <button type="button" class="prompt-chip focus-ring">Top-rated security software in 2025</button>
+              <button type="button" class="prompt-chip focus-ring">Best alternatives to Salesforce</button>
+            </div>
+          </div>
 
           <!-- Response panel (populated by JS) -->
           <div id="response-panel"

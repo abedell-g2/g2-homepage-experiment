@@ -74,8 +74,8 @@ document.addEventListener('keydown', (e) => {
 // Hybrid Search / AI input
 // ----------------------------------------------------------------
 const searchForm    = document.getElementById('search-form');
+const searchField   = document.getElementById('search-field');
 const searchInput   = document.getElementById('search-input');
-const searchBtn     = document.getElementById('search-btn');
 const searchHint    = document.getElementById('search-hint');
 const responsePanel = document.getElementById('response-panel');
 
@@ -328,7 +328,7 @@ searchForm.addEventListener('submit', (e) => {
     return;
   }
 
-  const mode = detectMode(query);
+  const mode = aiModeActive ? 'ai' : detectMode(query);
   responsePanel.classList.remove('hidden');
 
   if (mode === 'ai') {
@@ -343,7 +343,7 @@ searchForm.addEventListener('submit', (e) => {
       typeText('ai-text', getAIResponse(query));
     }, 900);
 
-    searchHint.textContent = 'Ask a follow-up, or search for specific software';
+    if (!aiModeActive) searchHint.textContent = 'Ask a follow-up, or search for specific software';
 
   } else {
     responsePanel.innerHTML = buildSearchCard(query);
@@ -358,13 +358,12 @@ searchForm.addEventListener('submit', (e) => {
 searchInput.addEventListener('input', () => {
   const query = searchInput.value.trim();
 
-  // Show/hide submit button
-  if (query.length > 0) {
-    searchBtn.classList.add('visible');
-  } else {
-    searchBtn.classList.remove('visible');
+  // In AI mode the hint is managed by the toggle — don't override it
+  if (aiModeActive) return;
+
+  if (query.length === 0) {
     responsePanel.classList.add('hidden');
-    searchHint.textContent = 'Try "HubSpot" to search, or "What\'s the best CRM for startups?" for AI help';
+    searchHint.innerHTML = 'Try <em>"HubSpot"</em> to search, or <em>"What\'s the best CRM for startups?"</em> for AI help';
     return;
   }
 
@@ -382,4 +381,46 @@ searchInput.addEventListener('keydown', (e) => {
     e.preventDefault();
     searchForm.dispatchEvent(new Event('submit'));
   }
+});
+
+// ----------------------------------------------------------------
+// AI Mode toggle
+// ----------------------------------------------------------------
+const aiModeToggle = document.getElementById('ai-mode-toggle');
+const aiCanvas     = document.getElementById('ai-canvas');
+let   aiModeActive = false;
+
+function activateAIMode() {
+  aiModeActive = true;
+  aiModeToggle.setAttribute('aria-pressed', 'true');
+  searchField.classList.add('ai-active');
+  searchInput.placeholder = 'Ask me anything about software...';
+  searchHint.textContent = '✨ AI Mode on — ask a question or choose a suggestion below';
+  aiCanvas.classList.remove('hidden');
+  aiCanvas.removeAttribute('aria-hidden');
+  responsePanel.classList.add('hidden');
+  searchInput.focus();
+}
+
+function deactivateAIMode() {
+  aiModeActive = false;
+  aiModeToggle.setAttribute('aria-pressed', 'false');
+  searchField.classList.remove('ai-active');
+  searchInput.placeholder = 'Discover what\'s new at G2...';
+  searchHint.innerHTML = 'Try <em>"HubSpot"</em> to search, or <em>"What\'s the best CRM for startups?"</em> for AI help';
+  aiCanvas.classList.add('hidden');
+  aiCanvas.setAttribute('aria-hidden', 'true');
+  responsePanel.classList.add('hidden');
+}
+
+aiModeToggle.addEventListener('click', () => {
+  aiModeActive ? deactivateAIMode() : activateAIMode();
+});
+
+// Prompt chip clicks — fill input and submit
+document.querySelectorAll('.prompt-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    searchInput.value = chip.textContent.trim();
+    searchForm.dispatchEvent(new Event('submit'));
+  });
 });

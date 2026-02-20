@@ -49,8 +49,14 @@
 }
 
 /* ---- Search field ---- */
+#search-field {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 #search-field:focus-within {
   box-shadow: 0 0 0 3px rgba(87, 70, 178, 0.18);
+}
+#search-field.ai-active {
+  border-color: #5746b2;
 }
 
 /* Hide native search cancel button */
@@ -60,17 +66,62 @@ input[type="text"]::-webkit-search-cancel-button {
   appearance: none;
 }
 
-/* Search submit button — hidden until user types */
-.search-btn {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  transform: scale(0.9);
+/* ---- AI Mode toggle pill ---- */
+.ai-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px 5px 8px;
+  border-radius: 20px;
+  border: 1.5px solid #dfdfe2;
+  background: white;
+  color: #6f6d78;
+  font-family: 'Figtree', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: 1;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
-.search-btn.visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: scale(1);
+.ai-toggle[aria-pressed="true"] {
+  background: #5746b2;
+  border-color: #5746b2;
+  color: white;
+  box-shadow: 0 0 0 3px rgba(87, 70, 178, 0.18);
+}
+.ai-toggle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #dfdfe2;
+  flex-shrink: 0;
+  transition: background 0.25s ease;
+}
+.ai-toggle[aria-pressed="true"] .ai-toggle-dot {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* ---- AI canvas prompt chips ---- */
+#ai-canvas {
+  animation: slide-up 0.25s ease-out;
+}
+.prompt-chip {
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1.5px solid #ebe9f6;
+  background: white;
+  color: #5746b2;
+  font-family: 'Figtree', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.prompt-chip:hover {
+  background: #ebe9f6;
+  border-color: #5746b2;
 }
 
 /* ---- Stat cards (desktop floating) ---- */
@@ -197,7 +248,10 @@ input[type="text"]::-webkit-search-cancel-button {
   .typing-cursor::after,
   .loading-dots span,
   .dropdown-menu,
-  .response-card {
+  .response-card,
+  #ai-canvas,
+  .ai-toggle,
+  .ai-toggle-dot {
     animation: none !important;
     transition: none !important;
   }
