@@ -80,6 +80,8 @@ const searchHint    = document.getElementById('search-hint');
 const responsePanel = document.getElementById('response-panel');
 const aiModeToggle  = document.getElementById('ai-mode-toggle');
 const aiCanvas      = document.getElementById('ai-canvas');
+const siteHeader    = document.getElementById('site-header');
+const heroSection   = document.querySelector('.hero-section');
 
 let aiModeActive = false;
 
@@ -95,6 +97,9 @@ function activateAIMode() {
   aiCanvas.classList.remove('hidden');
   aiCanvas.removeAttribute('aria-hidden');
   responsePanel.classList.add('hidden');
+  // Immersive transition
+  siteHeader.classList.add('ai-hidden');
+  heroSection.classList.add('ai-mode-active');
   searchInput.focus();
 }
 
@@ -107,6 +112,9 @@ function deactivateAIMode() {
   aiCanvas.classList.add('hidden');
   aiCanvas.setAttribute('aria-hidden', 'true');
   responsePanel.classList.add('hidden');
+  // Restore immersive transition
+  siteHeader.classList.remove('ai-hidden');
+  heroSection.classList.remove('ai-mode-active');
 }
 
 aiModeToggle.addEventListener('click', () => {

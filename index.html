@@ -60,7 +60,7 @@
   <!-- ================================================================
        HEADER
   ================================================================ -->
-  <header class="bg-white shadow-elv-1 sticky top-0 z-50" role="banner">
+  <header id="site-header" class="bg-white shadow-elv-1 sticky top-0 z-50" role="banner">
 
     <!-- Primary Nav -->
     <nav aria-label="Primary navigation" class="flex items-center justify-between px-5 py-4">
@@ -245,7 +245,7 @@
              aria-labelledby="hero-heading">
 
       <!-- Background layer (decorative) -->
-      <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <div id="hero-bg" class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         <div class="absolute inset-0 bg-[#fafafa]"></div>
         <img src="images/BKGD-Illustration/G2-Homepage-BKGD.jpg"
              alt=""
@@ -263,7 +263,7 @@
       <div class="relative z-10 flex flex-col items-center px-5 sm:px-10 w-full max-w-[856px] mx-auto text-center gap-8">
 
         <!-- Headline + subheading -->
-        <div class="flex flex-col gap-3 items-center">
+        <div id="hero-headline" class="flex flex-col gap-3 items-center">
           <h1 id="hero-heading" class="hero-heading text-g2-dark">
             The World’s Largest Network<br class="hidden sm:inline"> of B2B Software Reviews
           </h1>
@@ -342,7 +342,7 @@
       </div>
 
       <!-- Mobile stats row (only < lg) -->
-      <div class="relative z-10 lg:hidden flex flex-wrap justify-center gap-3 mt-8 px-5 w-full" aria-label="G2 statistics">
+      <div id="hero-mobile-stats" class="relative z-10 lg:hidden flex flex-wrap justify-center gap-3 mt-8 px-5 w-full" aria-label="G2 statistics">
         <div class="stat-pill">
           <span class="font-black text-g2-dark text-xl leading-none">200M+</span>
           <span class="text-g2-text text-xs mt-0.5">Annual Buyers</span>
@@ -358,7 +358,7 @@
       </div>
 
       <!-- Desktop hero illustration with floating stat + logo cards -->
-      <div class="relative w-full max-w-[1024px] mx-auto mt-4 hidden lg:block"
+      <div id="hero-illustration" class="relative w-full max-w-[1024px] mx-auto mt-4 hidden lg:block"
            style="height:560px;"
            aria-hidden="true">
 

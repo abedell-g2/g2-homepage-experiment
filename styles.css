@@ -249,6 +249,60 @@ input[type="text"]::-webkit-search-cancel-button {
   animation: float 3.5s ease-in-out infinite;
 }
 
+/* ---- Immersive AI Mode transitions ---- */
+#site-header {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+#site-header.ai-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+}
+
+#hero-bg {
+  transition: opacity 0.5s ease;
+}
+.hero-section.ai-mode-active #hero-bg {
+  opacity: 0;
+}
+
+#hero-headline {
+  max-height: 300px;
+  overflow: hidden;
+  transition: opacity 0.3s ease, max-height 0.45s ease;
+}
+.hero-section.ai-mode-active #hero-headline {
+  opacity: 0;
+  max-height: 0;
+}
+
+#hero-mobile-stats {
+  max-height: 200px;
+  overflow: hidden;
+  transition: opacity 0.3s ease, max-height 0.45s ease;
+}
+.hero-section.ai-mode-active #hero-mobile-stats {
+  opacity: 0;
+  max-height: 0;
+}
+
+#hero-illustration {
+  max-height: 600px;
+  overflow: hidden;
+  transition: opacity 0.35s ease, max-height 0.5s ease;
+}
+.hero-section.ai-mode-active #hero-illustration {
+  opacity: 0;
+  max-height: 0;
+}
+
+.hero-section {
+  transition: padding-top 0.45s ease;
+}
+.hero-section.ai-mode-active {
+  padding-top: 120px;
+}
+
 /* ---- Reduced motion support (WCAG 2.3.3) ---- */
 @media (prefers-reduced-motion: reduce) {
   .stat-card,
@@ -259,7 +313,13 @@ input[type="text"]::-webkit-search-cancel-button {
   .response-card,
   #ai-canvas,
   .ai-toggle,
-  .ai-toggle-dot {
+  .ai-toggle-dot,
+  #site-header,
+  #hero-bg,
+  #hero-headline,
+  #hero-mobile-stats,
+  #hero-illustration,
+  .hero-section {
     animation: none !important;
     transition: none !important;
   }
