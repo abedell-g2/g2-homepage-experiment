@@ -263,70 +263,76 @@ input[type="text"]::-webkit-search-cancel-button {
 }
 
 #site-header {
+  opacity: 1;
   transition: opacity 0.65s ease, transform 0.65s ease;
 }
 #site-header.ai-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-8px);
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(-8px) !important;
 }
 
 #hero-bg {
+  opacity: 1;
   transition: opacity 0.75s ease;
 }
 .hero-section.ai-mode-active #hero-bg {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 #hero-headline {
+  opacity: 1;
   max-height: 300px;
   overflow: hidden;
   transition: opacity 0.45s ease, max-height 0.65s ease;
 }
 .hero-section.ai-mode-active #hero-headline {
-  opacity: 0;
-  max-height: 0;
+  opacity: 0 !important;
+  max-height: 0 !important;
 }
 
 #hero-mobile-stats {
+  opacity: 1;
   max-height: 200px;
   overflow: hidden;
   transition: opacity 0.45s ease, max-height 0.65s ease;
 }
 .hero-section.ai-mode-active #hero-mobile-stats {
-  opacity: 0;
-  max-height: 0;
+  opacity: 0 !important;
+  max-height: 0 !important;
 }
 
 #hero-illustration {
+  opacity: 1;
   max-height: 600px;
   overflow: hidden;
   transition: opacity 0.5s ease, max-height 0.7s ease;
 }
 .hero-section.ai-mode-active #hero-illustration {
-  opacity: 0;
-  max-height: 0;
+  opacity: 0 !important;
+  max-height: 0 !important;
 }
 
 .hero-section {
   transition: padding-top 0.65s ease;
 }
 .hero-section.ai-mode-active {
-  padding-top: 120px;
+  padding-top: 120px !important;
 }
 
 /* Trusted brands section collapses in AI Mode */
 #trusted-section {
+  opacity: 1;
   max-height: 500px;
   overflow: hidden;
   transition: opacity 0.65s ease, max-height 0.75s ease,
               padding-top 0.65s ease, padding-bottom 0.65s ease;
 }
 #trusted-section.ai-hidden {
-  opacity: 0;
-  max-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  opacity: 0 !important;
+  max-height: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 /* ---- Reduced motion support (WCAG 2.3.3) ---- */
