@@ -250,8 +250,20 @@ input[type="text"]::-webkit-search-cancel-button {
 }
 
 /* ---- Immersive AI Mode transitions ---- */
+
+/* Floating G2 logo that appears in AI Mode */
+#ai-mode-logo {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.65s ease;
+}
+#ai-mode-logo.ai-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 #site-header {
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.65s ease, transform 0.65s ease;
 }
 #site-header.ai-hidden {
   opacity: 0;
@@ -260,7 +272,7 @@ input[type="text"]::-webkit-search-cancel-button {
 }
 
 #hero-bg {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.75s ease;
 }
 .hero-section.ai-mode-active #hero-bg {
   opacity: 0;
@@ -269,7 +281,7 @@ input[type="text"]::-webkit-search-cancel-button {
 #hero-headline {
   max-height: 300px;
   overflow: hidden;
-  transition: opacity 0.3s ease, max-height 0.45s ease;
+  transition: opacity 0.45s ease, max-height 0.65s ease;
 }
 .hero-section.ai-mode-active #hero-headline {
   opacity: 0;
@@ -279,7 +291,7 @@ input[type="text"]::-webkit-search-cancel-button {
 #hero-mobile-stats {
   max-height: 200px;
   overflow: hidden;
-  transition: opacity 0.3s ease, max-height 0.45s ease;
+  transition: opacity 0.45s ease, max-height 0.65s ease;
 }
 .hero-section.ai-mode-active #hero-mobile-stats {
   opacity: 0;
@@ -289,7 +301,7 @@ input[type="text"]::-webkit-search-cancel-button {
 #hero-illustration {
   max-height: 600px;
   overflow: hidden;
-  transition: opacity 0.35s ease, max-height 0.5s ease;
+  transition: opacity 0.5s ease, max-height 0.7s ease;
 }
 .hero-section.ai-mode-active #hero-illustration {
   opacity: 0;
@@ -297,10 +309,24 @@ input[type="text"]::-webkit-search-cancel-button {
 }
 
 .hero-section {
-  transition: padding-top 0.45s ease;
+  transition: padding-top 0.65s ease;
 }
 .hero-section.ai-mode-active {
   padding-top: 120px;
+}
+
+/* Trusted brands section collapses in AI Mode */
+#trusted-section {
+  max-height: 500px;
+  overflow: hidden;
+  transition: opacity 0.65s ease, max-height 0.75s ease,
+              padding-top 0.65s ease, padding-bottom 0.65s ease;
+}
+#trusted-section.ai-hidden {
+  opacity: 0;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 /* ---- Reduced motion support (WCAG 2.3.3) ---- */
@@ -319,7 +345,9 @@ input[type="text"]::-webkit-search-cancel-button {
   #hero-headline,
   #hero-mobile-stats,
   #hero-illustration,
-  .hero-section {
+  .hero-section,
+  #trusted-section,
+  #ai-mode-logo {
     animation: none !important;
     transition: none !important;
   }

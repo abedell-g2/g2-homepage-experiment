@@ -57,6 +57,11 @@
   <!-- Skip navigation (WCAG) -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
+  <!-- Floating G2 logo shown during immersive AI Mode -->
+  <div id="ai-mode-logo" class="fixed top-4 left-5 z-[200]" aria-hidden="true">
+    <img src="images/G2-Logo.svg" alt="" height="40" class="h-10 w-auto">
+  </div>
+
   <!-- ================================================================
        HEADER
   ================================================================ -->
@@ -241,7 +246,7 @@
   <main id="main-content">
 
     <!-- ---- HERO SECTION ---- -->
-    <section class="hero-section relative overflow-hidden flex flex-col items-center pt-10 pb-0"
+    <section class="hero-section relative flex flex-col items-center pt-10 pb-0"
              aria-labelledby="hero-heading">
 
       <!-- Background layer (decorative) -->
@@ -424,7 +429,7 @@
     </section>
 
     <!-- ---- TRUSTED BRANDS SECTION ---- -->
-    <section class="bg-white pt-16 pb-10 px-6 shadow-elv-3"
+    <section id="trusted-section" class="bg-white pt-16 pb-10 px-6 shadow-elv-3"
              aria-labelledby="trusted-heading">
       <div class="max-w-[1024px] mx-auto flex flex-col gap-8 items-center">
         <h2 id="trusted-heading"
