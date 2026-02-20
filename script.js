@@ -1,6 +1,6 @@
 /* ============================================================
    G2 Homepage Experiment — JavaScript
-   Handles: mobile nav, dropdown, hybrid search/AI input
+   Handles: mobile nav, dropdown, hybrid search/AI input, AI mode toggle
    ============================================================ */
 
 'use strict';
@@ -39,8 +39,8 @@ window.addEventListener('resize', () => {
 // ----------------------------------------------------------------
 // For Business dropdown
 // ----------------------------------------------------------------
-const dropdownEl  = document.querySelector('[data-dropdown]');
-const dropdownBtn = dropdownEl?.querySelector('button');
+const dropdownEl   = document.querySelector('[data-dropdown]');
+const dropdownBtn  = dropdownEl?.querySelector('button');
 const dropdownMenu = dropdownEl?.querySelector('.dropdown-menu');
 
 function openDropdown() {
@@ -71,22 +71,65 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ----------------------------------------------------------------
-// Hybrid Search / AI input
+// Hybrid Search / AI input — element refs + state
 // ----------------------------------------------------------------
 const searchForm    = document.getElementById('search-form');
 const searchField   = document.getElementById('search-field');
 const searchInput   = document.getElementById('search-input');
 const searchHint    = document.getElementById('search-hint');
 const responsePanel = document.getElementById('response-panel');
+const aiModeToggle  = document.getElementById('ai-mode-toggle');
+const aiCanvas      = document.getElementById('ai-canvas');
 
-// Patterns that suggest the user is asking a question (AI mode)
+let aiModeActive = false;
+
+// ----------------------------------------------------------------
+// AI Mode toggle
+// ----------------------------------------------------------------
+function activateAIMode() {
+  aiModeActive = true;
+  aiModeToggle.setAttribute('aria-pressed', 'true');
+  searchField.classList.add('ai-active');
+  searchInput.placeholder = 'Ask me anything about software...';
+  searchHint.textContent = '✨ AI Mode on — ask a question or choose a suggestion below';
+  aiCanvas.classList.remove('hidden');
+  aiCanvas.removeAttribute('aria-hidden');
+  responsePanel.classList.add('hidden');
+  searchInput.focus();
+}
+
+function deactivateAIMode() {
+  aiModeActive = false;
+  aiModeToggle.setAttribute('aria-pressed', 'false');
+  searchField.classList.remove('ai-active');
+  searchInput.placeholder = 'Discover what\'s new at G2...';
+  searchHint.innerHTML = 'Try <em>"HubSpot"</em> to search, or <em>"What\'s the best CRM for startups?"</em> for AI help';
+  aiCanvas.classList.add('hidden');
+  aiCanvas.setAttribute('aria-hidden', 'true');
+  responsePanel.classList.add('hidden');
+}
+
+aiModeToggle.addEventListener('click', () => {
+  aiModeActive ? deactivateAIMode() : activateAIMode();
+});
+
+// Prompt chip clicks — fill input and submit
+document.querySelectorAll('.prompt-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    searchInput.value = chip.textContent.trim();
+    searchForm.dispatchEvent(new Event('submit'));
+  });
+});
+
+// ----------------------------------------------------------------
+// Mock data
+// ----------------------------------------------------------------
 const AI_TRIGGERS = /\b(what|how|which|who|why|where|when|compare|best|vs\.?|versus|recommend|recommendation|difference|alternatives|similar|like|help|find|looking for|i need|top|review)\b|\?/i;
 
 function detectMode(query) {
   return AI_TRIGGERS.test(query) ? 'ai' : 'search';
 }
 
-// ---- Mock product database ----
 const PRODUCTS = {
   hubspot: {
     name: 'HubSpot CRM',
@@ -146,7 +189,6 @@ const PRODUCTS = {
   },
 };
 
-// ---- Mock AI responses ----
 const AI_RESPONSES = {
   crm: 'Based on **6M+ verified G2 reviews**, the top CRMs for startups are:\n\n1. **HubSpot CRM** — Free tier, 4.4★, 12K+ reviews. Best for marketing-led growth.\n2. **Pipedrive** — Sales-focused, intuitive pipeline view, 4.3★.\n3. **Salesforce Starter** — Enterprise-ready and scales as you grow.\n\nHubSpot is the most-recommended for early-stage teams thanks to its powerful free plan and ease of setup.',
   compare: 'Great comparison! G2 lets you run side-by-side comparisons across pricing, features, integrations, and real user sentiment. I can pull up a detailed breakdown — just tell me the two products you\'d like to compare.',
@@ -158,11 +200,11 @@ const AI_RESPONSES = {
 
 function getAIResponse(query) {
   const q = query.toLowerCase();
-  if (/crm|customer relationship|sales team|startup crm/.test(q))         return AI_RESPONSES.crm;
-  if (/compare|vs|versus|difference/.test(q))                              return AI_RESPONSES.compare;
-  if (/best|top|recommended|leading/.test(q))                              return AI_RESPONSES.best;
-  if (/alternative|similar|like|instead of/.test(q))                      return AI_RESPONSES.alternatives;
-  if (/review|rating|rated/.test(q))                                       return AI_RESPONSES.reviews;
+  if (/crm|customer relationship|sales team|startup crm/.test(q))    return AI_RESPONSES.crm;
+  if (/compare|vs|versus|difference/.test(q))                         return AI_RESPONSES.compare;
+  if (/best|top|recommended|leading/.test(q))                         return AI_RESPONSES.best;
+  if (/alternative|similar|like|instead of/.test(q))                 return AI_RESPONSES.alternatives;
+  if (/review|rating|rated/.test(q))                                  return AI_RESPONSES.reviews;
   return AI_RESPONSES.default;
 }
 
@@ -171,7 +213,6 @@ function getProductMatch(query) {
   for (const [key, data] of Object.entries(PRODUCTS)) {
     if (q.includes(key)) return data;
   }
-  // Generic fallback
   return {
     name: toTitleCase(query),
     category: 'Software',
@@ -186,22 +227,21 @@ function toTitleCase(str) {
   return str.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
 }
 
-// ---- Star rendering ----
+// ----------------------------------------------------------------
+// Card builders
+// ----------------------------------------------------------------
 function renderStars(rating) {
   const starPath = 'M8.5 0L10.986 5.18L16.584 5.91L12.542 9.82L13.472 15.09L8.5 12.18L3.528 15.09L4.458 9.82L.416 5.91L6.014 5.18L8.5 0Z';
   const full    = Math.floor(rating);
   const hasHalf = (rating % 1) >= 0.5;
   let html = '';
-
   const star = (fill) => `<svg width="13" height="13" viewBox="0 0 17 16" fill="${fill}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="${starPath}"/></svg>`;
-
   for (let i = 0; i < full; i++) html += star('#FF8F00');
   if (hasHalf) html += star('#FFC842');
   for (let i = full + (hasHalf ? 1 : 0); i < 5; i++) html += star('#E5E7EB');
   return html;
 }
 
-// ---- Search result card ----
 function buildSearchCard(query) {
   const p = getProductMatch(query);
   return `
@@ -235,7 +275,6 @@ function buildSearchCard(query) {
   `;
 }
 
-// ---- AI response card (with typing animation) ----
 function buildAICard() {
   return `
     <div class="response-card">
@@ -249,58 +288,34 @@ function buildAICard() {
         </div>
         <span class="text-xs font-bold text-g2-purple uppercase tracking-wider">G2 AI</span>
       </div>
-
-      <!-- Loading dots (shown briefly, then replaced by typed text) -->
       <div id="ai-loading" class="loading-dots py-1" aria-label="G2 AI is generating a response" role="status">
         <span></span><span></span><span></span>
       </div>
-
-      <div id="ai-text"
-           class="text-sm text-g2-text leading-relaxed hidden"
-           aria-live="polite"></div>
-
+      <div id="ai-text" class="text-sm text-g2-text leading-relaxed hidden" aria-live="polite"></div>
       <div class="mt-4 pt-4 border-t border-g2-border-light flex items-center justify-between flex-wrap gap-2">
         <p class="text-xs text-g2-muted">Powered by 6M+ verified G2 reviews</p>
         <div class="flex gap-4">
-          <button type="button"
-                  class="text-xs text-g2-muted hover:text-g2-dark transition-colors focus-ring rounded"
-                  aria-label="Mark this response as helpful">
-            👍 Helpful
-          </button>
-          <button type="button"
-                  class="text-xs text-g2-muted hover:text-g2-dark transition-colors focus-ring rounded"
-                  aria-label="Mark this response as not helpful">
-            👎 Not helpful
-          </button>
+          <button type="button" class="text-xs text-g2-muted hover:text-g2-dark transition-colors focus-ring rounded" aria-label="Mark this response as helpful">👍 Helpful</button>
+          <button type="button" class="text-xs text-g2-muted hover:text-g2-dark transition-colors focus-ring rounded" aria-label="Mark this response as not helpful">👎 Not helpful</button>
         </div>
       </div>
     </div>
   `;
 }
 
-// Type text character-by-character (respects prefers-reduced-motion)
 function typeText(elementId, rawText, speed = 16) {
   const el = document.getElementById(elementId);
   if (!el) return;
-
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // Convert **bold** and \n\n to HTML
   function formatMarkdown(text) {
     return text
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\n\n/g, '<br><br>')
       .replace(/^\d+\.\s/gm, (m) => `<strong>${m}</strong>`);
   }
-
-  if (prefersReduced) {
-    el.innerHTML = formatMarkdown(rawText);
-    return;
-  }
-
+  if (prefersReduced) { el.innerHTML = formatMarkdown(rawText); return; }
   el.classList.add('typing-cursor');
   let i = 0;
-
   const interval = setInterval(() => {
     i++;
     el.textContent = rawText.slice(0, i);
@@ -312,29 +327,25 @@ function typeText(elementId, rawText, speed = 16) {
   }, speed);
 }
 
-// XSS safety
 function escapeHTML(str) {
   const el = document.createElement('div');
   el.textContent = str;
   return el.innerHTML;
 }
 
-// ---- Form submission ----
+// ----------------------------------------------------------------
+// Form submission
+// ----------------------------------------------------------------
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const query = searchInput.value.trim();
-  if (!query) {
-    searchInput.focus();
-    return;
-  }
+  if (!query) { searchInput.focus(); return; }
 
   const mode = aiModeActive ? 'ai' : detectMode(query);
   responsePanel.classList.remove('hidden');
 
   if (mode === 'ai') {
     responsePanel.innerHTML = buildAICard();
-
-    // Simulate brief "thinking" delay, then type response
     setTimeout(() => {
       const loading = document.getElementById('ai-loading');
       const textEl  = document.getElementById('ai-text');
@@ -342,23 +353,20 @@ searchForm.addEventListener('submit', (e) => {
       if (textEl)  textEl.classList.remove('hidden');
       typeText('ai-text', getAIResponse(query));
     }, 900);
-
     if (!aiModeActive) searchHint.textContent = 'Ask a follow-up, or search for specific software';
-
   } else {
     responsePanel.innerHTML = buildSearchCard(query);
     searchHint.textContent = `Showing results for "${query}" · Ask a question for AI-powered help`;
   }
 
-  // Smooth scroll to response
   responsePanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 });
 
-// ---- Live mode hint as user types ----
+// ----------------------------------------------------------------
+// Live mode hint as user types
+// ----------------------------------------------------------------
 searchInput.addEventListener('input', () => {
   const query = searchInput.value.trim();
-
-  // In AI mode the hint is managed by the toggle — don't override it
   if (aiModeActive) return;
 
   if (query.length === 0) {
@@ -375,52 +383,9 @@ searchInput.addEventListener('input', () => {
   }
 });
 
-// Also submit on Enter key
 searchInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
     searchForm.dispatchEvent(new Event('submit'));
   }
-});
-
-// ----------------------------------------------------------------
-// AI Mode toggle
-// ----------------------------------------------------------------
-const aiModeToggle = document.getElementById('ai-mode-toggle');
-const aiCanvas     = document.getElementById('ai-canvas');
-let   aiModeActive = false;
-
-function activateAIMode() {
-  aiModeActive = true;
-  aiModeToggle.setAttribute('aria-pressed', 'true');
-  searchField.classList.add('ai-active');
-  searchInput.placeholder = 'Ask me anything about software...';
-  searchHint.textContent = '✨ AI Mode on — ask a question or choose a suggestion below';
-  aiCanvas.classList.remove('hidden');
-  aiCanvas.removeAttribute('aria-hidden');
-  responsePanel.classList.add('hidden');
-  searchInput.focus();
-}
-
-function deactivateAIMode() {
-  aiModeActive = false;
-  aiModeToggle.setAttribute('aria-pressed', 'false');
-  searchField.classList.remove('ai-active');
-  searchInput.placeholder = 'Discover what\'s new at G2...';
-  searchHint.innerHTML = 'Try <em>"HubSpot"</em> to search, or <em>"What\'s the best CRM for startups?"</em> for AI help';
-  aiCanvas.classList.add('hidden');
-  aiCanvas.setAttribute('aria-hidden', 'true');
-  responsePanel.classList.add('hidden');
-}
-
-aiModeToggle.addEventListener('click', () => {
-  aiModeActive ? deactivateAIMode() : activateAIMode();
-});
-
-// Prompt chip clicks — fill input and submit
-document.querySelectorAll('.prompt-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    searchInput.value = chip.textContent.trim();
-    searchForm.dispatchEvent(new Event('submit'));
-  });
 });

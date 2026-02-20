@@ -71,18 +71,21 @@ input[type="text"]::-webkit-search-cancel-button {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 12px 5px 8px;
+  padding: 6px 14px 6px 10px;
   border-radius: 20px;
-  border: 1.5px solid #dfdfe2;
+  border: 1.5px solid #5746b2;
   background: white;
-  color: #6f6d78;
+  color: #5746b2;
   font-family: 'Figtree', sans-serif;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
   line-height: 1;
   transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+.ai-toggle:hover {
+  background: #ebe9f6;
 }
 .ai-toggle[aria-pressed="true"] {
   background: #5746b2;
@@ -90,16 +93,19 @@ input[type="text"]::-webkit-search-cancel-button {
   color: white;
   box-shadow: 0 0 0 3px rgba(87, 70, 178, 0.18);
 }
+.ai-toggle[aria-pressed="true"]:hover {
+  background: #4a3a9e;
+}
 .ai-toggle-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #dfdfe2;
+  background: #5746b2;
   flex-shrink: 0;
   transition: background 0.25s ease;
 }
 .ai-toggle[aria-pressed="true"] .ai-toggle-dot {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 /* ---- AI canvas prompt chips ---- */
