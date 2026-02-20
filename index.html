@@ -346,7 +346,7 @@
 
       <!-- Desktop hero illustration with floating stat + logo cards -->
       <div class="relative w-full max-w-[1024px] mx-auto mt-4 hidden lg:block"
-           style="height:520px;"
+           style="height:560px;"
            aria-hidden="true">
 
         <!-- G2 Logo (center anchor) -->
@@ -354,21 +354,33 @@
           <img src="images/BKGD-Illustration/G2-Logo.svg" alt="" width="112" class="w-28 drop-shadow-lg">
         </div>
 
-        <!-- Stat cards -->
+        <!-- 6 elements evenly distributed across horizontal width, alternating top/bottom -->
 
-        <!-- 200M+ Annual Buyers (left) -->
+        <!-- Col 1 — 200M+ (left-middle) -->
         <div class="stat-card absolute flex flex-col gap-1 items-center"
-             style="left:1%;top:36%;animation-delay:0s;">
-          <span class="font-black text-2xl text-g2-dark leading-7">200M+</span>
+             style="left:1%;top:37%;animation-delay:0s;">
+          <span class="font-black text-3xl text-g2-dark leading-8">200M+</span>
           <span class="text-g2-text text-sm leading-4 text-center">Annual Buyers</span>
         </div>
 
-        <!-- 6 Million Verified Reviews (top-center) -->
+        <!-- Col 2 — Capterra circle (upper-left) -->
+        <div class="logo-circle absolute"
+             style="left:17%;top:6%;animation-delay:0.25s;">
+          <img src="images/BKGD-Illustration/Cap-Logo.png" alt="Capterra" width="80" height="80" class="w-20 h-20 object-contain">
+        </div>
+
+        <!-- Col 3 — SoftwareAdvice circle (lower center-left) -->
+        <div class="logo-circle absolute"
+             style="left:34%;top:65%;animation-delay:0.5s;">
+          <img src="images/BKGD-Illustration/SA-Logo.png" alt="Software Advice" width="80" height="80" class="w-20 h-20 object-contain">
+        </div>
+
+        <!-- Col 4 — 6 Million (upper center-right) -->
         <div class="stat-card absolute flex flex-col gap-1 items-center"
-             style="left:39%;top:2%;animation-delay:0.5s;">
-          <span class="font-black text-2xl text-g2-dark leading-7">6 Million</span>
+             style="left:53%;top:3%;animation-delay:0.75s;">
+          <span class="font-black text-3xl text-g2-dark leading-8">6 Million</span>
           <span class="text-g2-text text-sm leading-4 text-center">Verified Reviews</span>
-          <div class="flex gap-0.5 mt-1">
+          <div class="flex gap-0.5 mt-1.5">
             <svg width="14" height="14" viewBox="0 0 17 16" fill="#FF8F00" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 0L10.986 5.18L16.584 5.91L12.542 9.82L13.472 15.09L8.5 12.18L3.528 15.09L4.458 9.82L.416 5.91L6.014 5.18L8.5 0Z"/></svg>
             <svg width="14" height="14" viewBox="0 0 17 16" fill="#FF8F00" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 0L10.986 5.18L16.584 5.91L12.542 9.82L13.472 15.09L8.5 12.18L3.528 15.09L4.458 9.82L.416 5.91L6.014 5.18L8.5 0Z"/></svg>
             <svg width="14" height="14" viewBox="0 0 17 16" fill="#FF8F00" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 0L10.986 5.18L16.584 5.91L12.542 9.82L13.472 15.09L8.5 12.18L3.528 15.09L4.458 9.82L.416 5.91L6.014 5.18L8.5 0Z"/></svg>
@@ -377,31 +389,17 @@
           </div>
         </div>
 
-        <!-- 150,000+ Products Listed (lower-right) -->
+        <!-- Col 5 — 150,000+ (lower center-right) -->
         <div class="stat-card absolute flex flex-col gap-1 items-center"
-             style="left:77%;top:62%;animation-delay:1s;">
-          <span class="font-black text-2xl text-g2-dark leading-7">150,000+</span>
+             style="left:68%;top:63%;animation-delay:1s;">
+          <span class="font-black text-3xl text-g2-dark leading-8">150,000+</span>
           <span class="text-g2-text text-sm leading-4 text-center">Products Listed</span>
         </div>
 
-        <!-- Logo circles -->
-
-        <!-- Capterra (upper-left) -->
+        <!-- Col 6 — GetApp circle (upper-right) -->
         <div class="logo-circle absolute"
-             style="left:9%;top:6%;animation-delay:0.25s;">
-          <img src="images/BKGD-Illustration/Cap-Logo.png" alt="Capterra" width="68" height="68" class="w-[68px] h-[68px] object-contain">
-        </div>
-
-        <!-- GetApp (upper-right) -->
-        <div class="logo-circle absolute"
-             style="left:74%;top:5%;animation-delay:0.75s;">
-          <img src="images/BKGD-Illustration/GetA-Logo.png" alt="GetApp" width="68" height="68" class="w-[68px] h-[68px] object-contain">
-        </div>
-
-        <!-- SoftwareAdvice (lower-left) -->
-        <div class="logo-circle absolute"
-             style="left:5%;top:64%;animation-delay:1.25s;">
-          <img src="images/BKGD-Illustration/SA-Logo.png" alt="Software Advice" width="68" height="68" class="w-[68px] h-[68px] object-contain">
+             style="left:83%;top:6%;animation-delay:1.25s;">
+          <img src="images/BKGD-Illustration/GetA-Logo.png" alt="GetApp" width="80" height="80" class="w-20 h-20 object-contain">
         </div>
       </div>
 

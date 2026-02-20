@@ -78,8 +78,8 @@ input[type="text"]::-webkit-search-cancel-button {
   background: #fff;
   border: 1px solid #f3f3f3;
   border-radius: 12px;
-  padding: 17px;
-  min-width: 130px;
+  padding: 22px;
+  min-width: 155px;
   box-shadow: 0px 10px 15px rgba(0,0,0,0.1), 0px 4px 6px rgba(0,0,0,0.1);
   animation: float 3.5s ease-in-out infinite;
 }
@@ -178,8 +178,8 @@ input[type="text"]::-webkit-search-cancel-button {
 
 /* ---- Partner logo circles (floating) ---- */
 .logo-circle {
-  width: 108px;
-  height: 108px;
+  width: 124px;
+  height: 124px;
   border-radius: 50%;
   background: #fff;
   border: 1px solid #f3f3f3;
