@@ -176,9 +176,24 @@ input[type="text"]::-webkit-search-cancel-button {
   40%         { transform: scale(1);   opacity: 1;   }
 }
 
+/* ---- Partner logo circles (floating) ---- */
+.logo-circle {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 10px 15px rgba(0,0,0,0.1), 0px 4px 6px rgba(0,0,0,0.1);
+  animation: float 3.5s ease-in-out infinite;
+}
+
 /* ---- Reduced motion support (WCAG 2.3.3) ---- */
 @media (prefers-reduced-motion: reduce) {
   .stat-card,
+  .logo-circle,
   .typing-cursor::after,
   .loading-dots span,
   .dropdown-menu,

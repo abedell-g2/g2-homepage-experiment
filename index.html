@@ -344,9 +344,9 @@
         </div>
       </div>
 
-      <!-- Desktop hero illustration with floating partner logo cards -->
+      <!-- Desktop hero illustration with floating stat + logo cards -->
       <div class="relative w-full max-w-[1024px] mx-auto mt-4 hidden lg:block"
-           style="height:420px;"
+           style="height:440px;"
            aria-hidden="true">
 
         <!-- G2 Logo (center anchor) -->
@@ -354,28 +354,60 @@
           <img src="images/BKGD-Illustration/G2-Logo.svg" alt="" width="96" class="w-24 drop-shadow-lg">
         </div>
 
+        <!-- Stat cards -->
+
+        <!-- 200M+ Annual Buyers (left) -->
+        <div class="stat-card absolute flex flex-col gap-1 items-center"
+             style="left:2%;top:38%;animation-delay:0s;">
+          <span class="font-black text-2xl text-g2-dark leading-7">200M+</span>
+          <span class="text-g2-text text-sm leading-4 text-center">Annual Buyers</span>
+        </div>
+
+        <!-- 6 Million Verified Reviews (top-center) -->
+        <div class="stat-card absolute flex flex-col gap-1 items-center"
+             style="left:42%;top:4%;animation-delay:0.5s;">
+          <span class="font-black text-2xl text-g2-dark leading-7">6 Million</span>
+          <span class="text-g2-text text-sm leading-4 text-center">Verified Reviews</span>
+          <div class="flex gap-0.5 mt-1">
+            <svg width="14" height="14" viewBox="0 0 17 16" fill="#FF8F00" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 0L10.986 5.18L16.584 5.91L12.542 9.82L13.472 15.09L8.5 12.18L3.528 15.09L4.458 9.82L.416 5.91L6.014 5.18L8.5 0Z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 17 16" fill="#FF8F00" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 0L10.986 5.18L16.584 5.91L12.542 9.82L13.472 15.09L8.5 12.18L3.528 15.09L4.458 9.82L.416 5.91L6.014 5.18L8.5 0Z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 17 16" fill="#FF8F00" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 0L10.986 5.18L16.584 5.91L12.542 9.82L13.472 15.09L8.5 12.18L3.528 15.09L4.458 9.82L.416 5.91L6.014 5.18L8.5 0Z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 17 16" fill="#FF8F00" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 0L10.986 5.18L16.584 5.91L12.542 9.82L13.472 15.09L8.5 12.18L3.528 15.09L4.458 9.82L.416 5.91L6.014 5.18L8.5 0Z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 17 16" fill="#FF8F00" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 0L10.986 5.18L16.584 5.91L12.542 9.82L13.472 15.09L8.5 12.18L3.528 15.09L4.458 9.82L.416 5.91L6.014 5.18L8.5 0Z"/></svg>
+          </div>
+        </div>
+
+        <!-- 150,000+ Products Listed (lower-right) -->
+        <div class="stat-card absolute flex flex-col gap-1 items-center"
+             style="left:74%;top:68%;animation-delay:1s;">
+          <span class="font-black text-2xl text-g2-dark leading-7">150,000+</span>
+          <span class="text-g2-text text-sm leading-4 text-center">Products Listed</span>
+        </div>
+
+        <!-- Logo circles -->
+
         <!-- Capterra (upper-left) -->
-        <div class="stat-card absolute flex items-center justify-center"
-             style="left:6%;top:14%;animation-delay:0s;">
-          <img src="images/BKGD-Illustration/Cap-Logo.png" alt="Capterra" width="64" height="64" class="w-16 h-16 object-contain">
+        <div class="logo-circle absolute"
+             style="left:12%;top:8%;animation-delay:0.25s;">
+          <img src="images/BKGD-Illustration/Cap-Logo.png" alt="Capterra" width="56" height="56" class="w-14 h-14 object-contain">
         </div>
 
         <!-- GetApp (upper-right) -->
-        <div class="stat-card absolute flex items-center justify-center"
-             style="left:70%;top:8%;animation-delay:0.7s;">
-          <img src="images/BKGD-Illustration/GetA-Logo.png" alt="GetApp" width="64" height="64" class="w-16 h-16 object-contain">
+        <div class="logo-circle absolute"
+             style="left:71%;top:6%;animation-delay:0.75s;">
+          <img src="images/BKGD-Illustration/GetA-Logo.png" alt="GetApp" width="56" height="56" class="w-14 h-14 object-contain">
         </div>
 
-        <!-- SoftwareAdvice (lower-right) -->
-        <div class="stat-card absolute flex items-center justify-center"
-             style="left:71%;top:66%;animation-delay:1.4s;">
-          <img src="images/BKGD-Illustration/SA-Logo.png" alt="Software Advice" width="64" height="64" class="w-16 h-16 object-contain">
+        <!-- SoftwareAdvice (lower-left) -->
+        <div class="logo-circle absolute"
+             style="left:8%;top:66%;animation-delay:1.25s;">
+          <img src="images/BKGD-Illustration/SA-Logo.png" alt="Software Advice" width="56" height="56" class="w-14 h-14 object-contain">
         </div>
       </div>
 
-      <!-- Accessible partner summary for screen readers only (desktop) -->
+      <!-- Accessible summary for screen readers only (desktop) -->
       <div class="sr-only" role="note">
-        G2 now includes Capterra, GetApp, and Software Advice.
+        G2 statistics: 200 million or more annual buyers, 6 million verified reviews, 150,000 or more products listed. Now including Capterra, GetApp, and Software Advice.
       </div>
 
     </section>
